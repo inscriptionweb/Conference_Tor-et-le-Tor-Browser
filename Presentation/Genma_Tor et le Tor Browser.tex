@@ -1,0 +1,255 @@
+\documentclass{beamer}
+\mode<presentation> {
+%\usetheme{Madrid}
+%\usetheme{default}
+\usepackage{color}
+\definecolor{bottomcolour}{rgb}{0.21,0.11,0.21}
+\definecolor{middlecolour}{rgb}{0.21,0.11,0.21}
+\setbeamercolor{structure}{fg=white}
+\setbeamertemplate{frametitle}[default]%[center]
+\setbeamercolor{normal text}{bg=black, fg=white}
+\setbeamertemplate{background canvas}[vertical shading]
+[bottom=bottomcolour, middle=middlecolour, top=black]
+\setbeamertemplate{items}[circle]
+\setbeamertemplate{navigation symbols}{} %no nav symbols
+\setbeamercolor{block title}{use=structure,fg=white,bg=structure.fg!50!red!50!blue!100!green}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!5!white!10!bg,fg=white}
+\setbeamertemplate{navigation symbols}{}
+}
+
+
+\usepackage{graphicx} 
+\usepackage{booktabs} 
+\usepackage[utf8]{inputenc}  
+\usepackage[T1]{fontenc}  
+\usepackage{geometry}     
+\usepackage[francais]{babel} 
+\usepackage{eurosym}
+\usepackage{verbatim}
+\usepackage{ragged2e}
+\justifying
+
+
+\input{cc_beamer}
+
+\title[Tor et le Tor Browser Bundle]{Tor et le Tor Browser Bundle} 
+\author{Genma}
+
+\begin{document}
+
+%% Titlepage
+\begin{frame}
+	\titlepage
+	\vfill
+	\begin{center}
+		\CcGroupByNcSa{0.83}{0.95ex}\\[2.5ex]
+		{\tiny\CcNote{\CcLongnameByNcSa}}
+		\vspace*{-2.5ex}
+	\end{center}
+\end{frame}
+
+
+%\begin{frame}
+%\frametitle{Plan} 
+%\tableofcontents
+%\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{\includegraphics[scale=0.4]{./Genma.jpg} \ \ \  A propos de moi  }
+\begin{columns}[c] 
+
+\column{.55\textwidth} 
+\textbf{Où me trouver sur Internet?}
+\begin{itemize}
+\item Le Blog de Genma : http://genma.free.fr
+\item Twitter : http://twitter.com/genma
+\end{itemize}
+
+\textbf{Mes centres d'intérêts?}
+\\ Plein de choses dont:
+\begin{itemize}
+\item La veille technologique
+\item Le chiffrement
+\end{itemize}
+
+\column{.5\textwidth} 
+\includegraphics[width=5cm,height=5cm]{blog.png} 
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Remerciements}
+Je remercie l'association NosOignons.net, qui propose des nœuds de sortie Tor financés par la communauté.
+https://nos-oignons.net
+ \\ $\Rightarrow$ Une partie des textes et illustrations proviennent de leur présentation à PSES2013.
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Présentation du réseau TOR}
+Tor est un logiciel libre,
+\begin{itemize}
+\item grâce auquel existe le réseau d'anonymisation Tor
+\item  soutenu par l'organisation The Tor Project.
+\end{itemize}
+$\Rightarrow$ Techniquement, Tor nous permet de se connecter à des machines sur Internet via des relais. 
+\\$\Rightarrow$ Et cela de façon à ce qu'elles ne puissent pas identifier notre connexion (et donc de nous localiser).
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{A quoi sert TOR?}
+
+Concrêtement, ça sert pour :
+\begin{itemize}
+\item  échapper au fichage publicitaire,
+\item  publier des informations sous un pseudonyme,
+\item  accéder à des informations en laissant moins de traces,
+\item  déjouer des dispositifs de filtrage (dans sa fac, en Chine ou en Iran…),
+\item  communiquer en déjouant des dispositifs de surveillances,
+\item  tester son pare-feu,
+\item  … et sûrement encore d'autres choses.
+\end{itemize}
+$\Rightarrow$ Tor dispose également d'un système de « services cachés » qui permet de fournir un service en cachant l'emplacement du serveur.
+\end{frame}
+
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{A quoi sert TOR?}
+
+Tor est un réseau d'anonymisation, donc par définition, c'est difficile de faire un compte
+précis.Tor ne fait rien pour cacher que nous utilisons Tor. Donc quand en utilisant
+Tor, nous nous mettons au milieu de la foule des gens qui utilisent Tor. Plus
+cette foule est grande, meilleur est l'anonymat.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Comment fonctionne Tor ?}
+\begin{center}
+\includegraphics[keepaspectratio,width=\textwidth, height=.8\textheight]{images/tor-safe-selection}
+\end{center}
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Comment fonctionne Tor ?}
+\begin{center}
+\includegraphics[keepaspectratio,width=\textwidth, height=.8\textheight]{images/tor-safe-path}
+\end{center}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Comment fonctionne Tor ?}
+\begin{center}
+\includegraphics[keepaspectratio,width=\textwidth, height=.8\textheight]{images/tor-keys1}
+\end{center}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Comment fonctionne Tor ?}
+
+Ce tunnels se fait « en oignon » avec des couches de chiffrement empilées. Il y a une première
+clé de chiffrement vers le nœud d'entrée, une second clé vers le nœud du milieu et
+une dernière pour le nœud de sortie.
+\\
+Il faut noter que Tor ne s'occupe pas de chiffrer après le nœud de sortie. Comme n'importe
+qui peut mettre en place un nœud de sortie, c'est une bonne idée de chiffrer sa communication
+en plus (par exemple en se connectant aux sites web que l'on visite en HTTPS).
+\\
+Après, se déroule tout un processus pour établir un tunnel chiffré jusqu'au
+nœud de sortie.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Utiliser Tor - Le Tor Browser}
+
+Le Tor Browser est une version Extended Support de Firefox, auxquelles sont ajoutée les extensions préconfigurées permettant qu’au lancement du navigateur, celui-ci se connecte à Tor. 
+\\$\Rightarrow$  Ainsi, toute la navigation qui se fait via ce navigateur est faite au travers du réseau Tor. 
+\\$\Rightarrow$ C’est simplissime.
+
+Toutes les versions (dans différentes langues, différents OS) sont disponibles sur le site du projet : https://www.torproject.org/projects/torbrowser.html
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Le Tor Browser}
+\begin{center}
+\includegraphics[keepaspectratio,width=\textwidth, height=.8\textheight]{images/tbb}
+\end{center}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Tor Browser Launcher}
+Pour avoir un Tor Browser toujours à jour, on peut installer le Tor Browser Launcher.
+https://github.com/micahflee/torbrowser-launcher
+\\
+Il gère : 
+\begin{itemize}
+\item le téléchargement de la version la plus récente de TBB, dans votre langue et pour votre architecture
+\item la mise à jour automatique (tout en conservant vos signets et préférences) manuel
+\item la vérification de la signature GnuPG du TBB (pour être sûr de l’intégrité des fichiers)
+\item ajoute un lanceur d’application "Tor Browser" dans le menu de votre environnement de bureau.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Utiliser Tor - Tails}
+
+Tails est un système d'exploitation complet basé sur Linux et Debian, en live.
+\begin{center}
+\includegraphics[keepaspectratio,width=\textwidth, height=.8\textheight]{images/tails}
+\end{center}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Tor hidden service - les services cachés de TOR}
+
+Tor permet aux clients et aux relais d’offrir des services cachés.Il est possible d'offrir un serveur web, un serveur SSH, etc, sans révéler son adresse IP aux utilisateurs.
+\begin{itemize}
+\item Tous ces sites ne sont accessibles que via le réseau Tor.
+\item Ils portent une adresse qui se termine par .onion.
+\item Des wikis et moteurs de recherches référencient ces services.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Soutenir Tor}
+
+Il existe l'association NosOignons.net, qui propose des nœuds de sortie Tor financés par la communauté.
+ https://nos-oignons.net
+\begin{itemize}
+\item En parler
+\item Faire un don
+\item Mettre en place un relais
+\end{itemize}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\begin{center}
+\Huge{Questions et discussion}
+\Huge{Démonstration}
+\end{center}
+\end{frame}
+
+\end{document}
